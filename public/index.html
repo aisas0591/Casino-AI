@@ -1,0 +1,420 @@
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Blackjack Royale | Multiplayer</title>
+
+<style>
+:root {
+  --gold:#e9c778;
+  --bg:#071b16;
+  --green:#125b43;
+  --white:#fff9e9;
+  --muted:#b5c4b9;
+}
+* {box-sizing:border-box}
+body {
+  margin:0;
+  background:radial-gradient(ellipse at top,#1c4938,#05120f 80%);
+  color:var(--white);
+  font-family:system-ui,-apple-system,Segoe UI,sans-serif;
+  min-height:100vh;
+}
+button,input {font:inherit}
+button {cursor:pointer}
+button:disabled {opacity:.35;cursor:not-allowed}
+.app {max-width:1100px;margin:auto;padding:20px 14px 40px}
+header {display:flex;justify-content:space-between;align-items:center;gap:15px;flex-wrap:wrap}
+.logo {font:bold clamp(22px,4vw,36px) Georgia,serif;color:var(--gold);letter-spacing:2px}
+.sub {font-size:10px;letter-spacing:3px;color:var(--muted);margin-top:5px}
+.balance {border:1px solid #d8b46b65;background:#ffffff0a;border-radius:12px;padding:12px 20px;text-align:center}
+.balance small {display:block;color:var(--muted)}
+.balance strong {font-size:26px;color:var(--gold)}
+.panel {background:#102b22;border:1px solid #ffffff20;border-radius:18px;padding:22px;margin-top:20px}
+h2 {font-family:Georgia,serif;color:var(--gold);margin-top:0}
+input {width:100%;padding:13px;border:1px solid #ffffff35;border-radius:9px;background:#071b16;color:white;margin-bottom:12px}
+.btn {border:0;border-radius:10px;padding:13px 19px;font-weight:800;transition:.2s}
+.btn:hover:not(:disabled) {transform:translateY(-2px);filter:brightness(1.1)}
+.gold {background:linear-gradient(120deg,#ffe4a1,#c3963f);color:#241b0a}
+.green {background:#1b855c;color:white}
+.blue {background:#376caa;color:white}
+.outline {border:1px solid #ffffff55;background:transparent;color:white}
+.row {display:flex;flex-wrap:wrap;gap:10px;align-items:center}
+.hidden {display:none!important}
+.lobby {max-width:500px;margin:50px auto}
+.lobby p {color:var(--muted)}
+.code {font-size:20px;font-weight:900;letter-spacing:3px;color:var(--gold)}
+.room-bar {display:flex;gap:12px;justify-content:space-between;align-items:center;flex-wrap:wrap;margin-top:20px}
+.table {
+  margin-top:18px;
+  min-height:430px;
+  padding:25px 15px;
+  background:radial-gradient(ellipse at center,#167455,#073b2b 80%);
+  border:9px solid #513720;
+  box-shadow:inset 0 0 0 3px #c4a061,0 20px 30px #0007;
+  border-radius:35% 35% 15% 15% / 12% 12% 9% 9%;
+  display:flex;flex-direction:column;justify-content:space-between;
+}
+.hand {text-align:center}
+.label {font-size:12px;letter-spacing:2px;color:#f3dba6;font-weight:bold}
+.score {display:inline-block;margin-top:7px;border-radius:20px;background:#06251f;padding:5px 15px;color:var(--gold)}
+.cards {display:flex;justify-content:center;align-items:center;min-height:120px;padding:12px 0}
+.card {
+  width:75px;height:108px;background:#fffdf5;color:#172525;
+  border-radius:9px;border:2px solid #e9e3d6;
+  box-shadow:3px 5px 10px #0007;margin:0 -5px;
+  position:relative;flex-shrink:0;
+  animation:slide .35s ease both;
+}
+.card.red {color:#ca3246}
+.corner {position:absolute;top:6px;left:8px;font-weight:900;font-size:18px}
+.corner span {display:block;font-size:15px}
+.center {position:absolute;inset:0;display:grid;place-items:center;font-size:42px}
+.card.back {border:5px solid #e8d5a6;background:repeating-linear-gradient(45deg,#1b345d 0 5px,#31527b 5px 10px)}
+.card.back:after {content:"♠";position:absolute;inset:13px;border:2px solid var(--gold);display:grid;place-items:center;font-size:30px;color:var(--gold);background:#142c4f}
+@keyframes slide {from{opacity:0;transform:translate(65px,-70px) rotate(15deg)}to{opacity:1;transform:none}}
+.table-center {text-align:center;color:#e9c77888;font:14px Georgia,serif;letter-spacing:2px}
+.players {display:grid;grid-template-columns:repeat(auto-fit,minmax(175px,1fr));gap:10px;margin-top:20px}
+.player {border:1px solid #ffffff24;background:#0d2820;border-radius:12px;padding:13px}
+.player.active {border-color:var(--gold);box-shadow:0 0 15px #e9c77822}
+.player.me {background:#173d30}
+.player-name {font-weight:bold;margin-bottom:9px}
+.player-info {font-size:13px;color:#b7c9bc;line-height:1.7}
+.chips {display:flex;justify-content:center;gap:15px;flex-wrap:wrap;margin:20px 0}
+.chip {border-radius:50%;width:67px;height:67px;color:white;border:6px dashed #ffffffd0;font-weight:900;box-shadow:0 6px 0 #0008;transition:.2s}
+.chip:hover:not(:disabled) {transform:translateY(-5px)}
+.c10 {background:#286cba}.c50 {background:#b33351}.c100 {background:#262b35}.c500 {background:#8d692b}
+.actions {display:flex;gap:10px;justify-content:center;flex-wrap:wrap}
+.status {color:var(--gold);text-align:center;margin:15px 0;font-weight:600}
+.history {font-size:13px;color:#c5d2c7;line-height:1.9}
+.toast {position:fixed;top:20px;left:50%;transform:translateX(-50%);z-index:10;background:#713c38;color:white;padding:15px 22px;border:1px solid #ffb8a9;border-radius:12px;box-shadow:0 12px 30px #0009;max-width:90%;text-align:center}
+footer {text-align:center;margin-top:30px;color:#899f91;font-size:11px}
+@media(max-width:600px) {
+  .app {padding:12px 8px 30px}
+  header {justify-content:center;text-align:center}
+  .table {min-height:380px;border-width:6px;padding:20px 7px}
+  .card {width:59px;height:88px;margin:0 -4px}
+  .corner {font-size:14px}.corner span{font-size:12px}
+  .center {font-size:31px}
+  .cards {min-height:95px}
+  .panel {padding:15px 10px}
+  .btn {padding:12px 14px;font-size:13px}
+}
+</style>
+</head>
+
+<body>
+<div class="app">
+
+<header>
+  <div>
+    <div class="logo">♠ BLACKJACK ROYALE</div>
+    <div class="sub">PRIVATE MULTIPLAYER CASINO</div>
+  </div>
+  <div class="balance">
+    <small>TUS FICHAS</small>
+    <strong id="balance">$1,000</strong>
+  </div>
+</header>
+
+<section id="lobby" class="panel lobby">
+  <h2>Bienvenido al casino ♠</h2>
+  <p>Crea una sala privada o únete a tus amigos. Cada jugador recibe $1,000 virtuales.</p>
+  <input id="name" maxlength="20" placeholder="Tu nombre de jugador">
+  <input id="code" maxlength="6" placeholder="Código de sala (para unirte)">
+  <div class="row">
+    <button id="create" class="btn gold">CREAR SALA</button>
+    <button id="join" class="btn green">UNIRME A SALA</button>
+  </div>
+</section>
+
+<section id="game" class="hidden">
+  <div class="room-bar">
+    <div>
+      SALA PRIVADA<br>
+      <span class="code" id="roomCode"></span>
+    </div>
+    <button id="share" class="btn outline">🔗 COMPARTIR INVITACIÓN</button>
+  </div>
+
+  <div class="table">
+    <div class="hand">
+      <div class="label">CRUPIER</div>
+      <div class="score" id="dealerScore">—</div>
+      <div class="cards" id="dealerCards"></div>
+    </div>
+
+    <div class="table-center">
+      ♠ ♥ ♣ ♦<br>
+      BLACKJACK PAYS 3 TO 2
+    </div>
+
+    <div class="hand">
+      <div class="label">TU MANO</div>
+      <div class="score" id="myScore">—</div>
+      <div class="cards" id="myCards"></div>
+    </div>
+  </div>
+
+  <div class="players" id="players"></div>
+
+  <div class="panel">
+    <div class="status" id="status">Esperando apuestas...</div>
+
+    <div id="bettingControls">
+      <div class="chips">
+        <button class="chip c10" data-bet="10">$10</button>
+        <button class="chip c50" data-bet="50">$50</button>
+        <button class="chip c100" data-bet="100">$100</button>
+        <button class="chip c500" data-bet="500">$500</button>
+      </div>
+      <div class="status">Tu apuesta: <span id="myBet">$0</span></div>
+      <div class="actions">
+        <button id="clearBet" class="btn outline">Limpiar apuesta</button>
+        <button id="startRound" class="btn gold">REPARTIR ♠</button>
+      </div>
+    </div>
+
+    <div id="playControls" class="actions hidden">
+      <button id="hit" class="btn blue">PEDIR</button>
+      <button id="stand" class="btn green">PLANTARSE</button>
+      <button id="double" class="btn gold">DOBLAR ×2</button>
+    </div>
+  </div>
+
+  <div class="panel">
+    <h2>Últimas rondas</h2>
+    <div id="history" class="history">Todavía no hay partidas.</div>
+  </div>
+</section>
+
+<footer>BLACKJACK ROYALE · SOLO FICHAS VIRTUALES · SIN DINERO REAL</footer>
+</div>
+
+<div id="toast" class="toast hidden"></div>
+
+<script src="/socket.io/socket.io.js"></script>
+<script>
+"use strict";
+
+const socket = io();
+const $ = id => document.getElementById(id);
+const money = n => "$" + Number(n || 0).toLocaleString("en-US");
+
+let state = null;
+let token = null;
+let playerId = null;
+let toastTimer = null;
+
+function showError(message) {
+  const toast = $("toast");
+  toast.textContent = message;
+  toast.classList.remove("hidden");
+  clearTimeout(toastTimer);
+  toastTimer = setTimeout(() => toast.classList.add("hidden"), 3500);
+}
+
+function cardHTML(card) {
+  if(!card) return '<div class="card back"></div>';
+  const red = ["♥","♦"].includes(card.suit);
+  return `<div class="card ${red ? "red" : ""}">
+    <div class="corner">${card.rank}<span>${card.suit}</span></div>
+    <div class="center">${card.suit}</div>
+  </div>`;
+}
+
+function total(cards) {
+  let sum = 0, aces = 0;
+  cards.forEach(c => {
+    if(!c) return;
+    if(c.rank === "A") {sum += 11;aces++;}
+    else if(["J","Q","K"].includes(c.rank)) sum += 10;
+    else sum += Number(c.rank);
+  });
+  while(sum > 21 && aces) {sum -= 10;aces--;}
+  return sum;
+}
+
+function render() {
+  if(!state) return;
+
+  $("lobby").classList.add("hidden");
+  $("game").classList.remove("hidden");
+  $("roomCode").textContent = state.code;
+
+  const me = state.players.find(p => p.id === playerId);
+  if(!me) return;
+
+  $("balance").textContent = money(me.balance);
+  $("myBet").textContent = money(me.bet);
+
+  $("myCards").innerHTML = me.cards.map(cardHTML).join("");
+  $("myScore").textContent = me.cards.length ? total(me.cards) : "—";
+
+  $("dealerCards").innerHTML = state.dealer.map(cardHTML).join("");
+  $("dealerScore").textContent = state.dealer.length
+    ? total(state.dealer.filter(Boolean)) + (state.dealer.includes(null) ? " + ?" : "")
+    : "—";
+
+  const isHost = state.host === playerId;
+  const isTurn = state.phase === "playing" && state.activeId === playerId;
+  const betting = state.phase === "betting" || state.phase === "finished";
+
+  $("bettingControls").classList.toggle("hidden", !betting);
+  $("playControls").classList.toggle("hidden", !isTurn);
+
+  $("startRound").classList.toggle("hidden", !isHost);
+  $("startRound").disabled = !state.players.some(p => p.bet > 0 && p.connected);
+  $("clearBet").disabled = state.phase !== "betting" || me.bet === 0;
+
+  document.querySelectorAll("[data-bet]").forEach(btn => {
+    btn.disabled = Number(btn.dataset.bet) > me.balance;
+  });
+
+  $("double").disabled = me.cards.length !== 2 || me.balance < me.bet;
+
+  const active = state.players.find(p => p.id === state.activeId);
+
+  if(state.phase === "betting") {
+    $("status").textContent = isHost
+      ? "Esperando apuestas. Reparte cuando estén listos."
+      : "Selecciona tus fichas y espera al anfitrión.";
+  } else if(state.phase === "playing") {
+    $("status").textContent = isTurn
+      ? "¡TU TURNO! Pide, plántate o dobla."
+      : "Turno de " + (active?.name || "otro jugador");
+  } else if(state.phase === "dealer") {
+    $("status").textContent = "El crupier está jugando...";
+  } else {
+    const labels = {
+      win:"🏆 ¡GANASTE!",
+      blackjack:"👑 ¡BLACKJACK!",
+      loss:"La casa gana",
+      push:"🤝 EMPATE"
+    };
+    $("status").textContent = labels[me.status] || "Ronda terminada. ¡Siguiente apuesta!";
+  }
+
+  $("players").innerHTML = state.players.map(p => `
+    <div class="player ${p.id === playerId ? "me" : ""} ${p.id === state.activeId ? "active" : ""}">
+      <div class="player-name">
+        ${escapeHTML(p.name)}
+        ${p.id === state.host ? "👑" : ""}
+        ${p.id === playerId ? " (Tú)" : ""}
+      </div>
+      <div class="player-info">
+        Fichas: ${money(p.balance)}<br>
+        Apuesta: ${money(p.bet)}<br>
+        Puntos: ${p.cards.length ? p.score : "—"}<br>
+        Estado: ${escapeHTML(p.status)}<br>
+        Victorias: ${p.wins} · Racha: ${p.streak}
+        ${!p.connected ? "<br>⚪ Desconectado" : ""}
+      </div>
+    </div>
+  `).join("");
+
+  $("history").innerHTML = state.history.length
+    ? state.history.map(h => `
+      <div>
+        <b>Ronda ${h.round}</b> · Crupier ${h.dealerScore}<br>
+        ${h.results.map(r =>
+          `${escapeHTML(r.name)}: ${escapeHTML(r.result)} (${r.profit >= 0 ? "+" : ""}${money(r.profit)})`
+        ).join(" · ")}
+      </div>
+    `).join("<hr style='border:0;border-top:1px solid #ffffff22'>")
+    : "Todavía no hay partidas.";
+}
+
+function escapeHTML(value) {
+  return String(value).replace(/[&<>"']/g,c => ({
+    "&":"&amp;",
+    "<":"&lt;",
+    ">":"&gt;",
+    '"':"&quot;",
+    "'":"&#39;"
+  }[c]));
+}
+
+function saveSession(code, sessionToken) {
+  sessionStorage.setItem("bjRoom", code);
+  sessionStorage.setItem("bjToken", sessionToken);
+}
+
+function enter(code, name, existingToken) {
+  socket.emit("room:join", {code,name,token:existingToken}, result => {
+    if(!result?.ok) {
+      showError(result?.error || "No se pudo entrar a la sala.");
+      return;
+    }
+    playerId = result.playerId;
+    token = result.token;
+    saveSession(result.code, token);
+  });
+}
+
+$("create").onclick = () => {
+  const name = $("name").value.trim();
+  if(!name) return showError("Escribe tu nombre primero.");
+
+  socket.emit("room:create",name,result => {
+    if(!result?.ok) return showError("No se pudo crear la sala.");
+    playerId = result.playerId;
+    token = result.token;
+    saveSession(result.code, token);
+    history.replaceState(null,"","?room=" + result.code);
+  });
+};
+
+$("join").onclick = () => {
+  const name = $("name").value.trim();
+  const code = $("code").value.trim().toUpperCase();
+
+  if(!name || !code) return showError("Escribe tu nombre y el código.");
+  enter(code,name,null);
+};
+
+socket.on("room:state", nextState => {
+  state = nextState;
+  playerId = nextState.viewerId;
+  render();
+});
+
+socket.on("game:error", showError);
+
+document.querySelectorAll("[data-bet]").forEach(btn => {
+  btn.onclick = () => socket.emit("bet:place",Number(btn.dataset.bet));
+});
+
+$("clearBet").onclick = () => socket.emit("bet:clear");
+$("startRound").onclick = () => socket.emit("round:start");
+$("hit").onclick = () => socket.emit("player:action","hit");
+$("stand").onclick = () => socket.emit("player:action","stand");
+$("double").onclick = () => socket.emit("player:action","double");
+
+$("share").onclick = async () => {
+  const url = location.origin + "/?room=" + state.code;
+  try {
+    await navigator.clipboard.writeText(url);
+    showError("¡Enlace copiado! Compártelo por WhatsApp.");
+  } catch {
+    prompt("Copia el enlace de invitación:",url);
+  }
+};
+
+const params = new URLSearchParams(location.search);
+const requestedRoom = params.get("room");
+if(requestedRoom) $("code").value = requestedRoom.toUpperCase();
+
+socket.on("connect",() => {
+  const savedRoom = sessionStorage.getItem("bjRoom");
+  const savedToken = sessionStorage.getItem("bjToken");
+
+  if(savedRoom && savedToken) {
+    enter(savedRoom,"Jugador",savedToken);
+  }
+});
+</script>
+</body>
+</html>
