@@ -3,30 +3,27 @@
 <html lang="es">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="viewport" content="width=device-width,initial-scale=1">
 <meta name="theme-color" content="#071d17">
 <title>Blackjack Royale Live</title>
 
 <style>
 :root {
   --gold:#eac477;
-  --green:#125b43;
   --white:#fff9e9;
   --muted:#b0c3b5;
   --panel:#102b22;
 }
-* { box-sizing:border-box; }
+* {box-sizing:border-box}
 body {
-  margin:0;
-  min-height:100vh;
-  color:var(--white);
+  margin:0;min-height:100vh;color:var(--white);
   font-family:system-ui,-apple-system,sans-serif;
   background:radial-gradient(ellipse at top,#1b4938,#04120e 80%);
 }
-button,input { font:inherit; }
-button { cursor:pointer; }
-button:disabled { opacity:.35;cursor:not-allowed; }
-.app { max-width:1100px;margin:auto;padding:20px 12px 40px; }
+button,input {font:inherit}
+button {cursor:pointer}
+button:disabled {opacity:.35;cursor:not-allowed}
+.app {max-width:1100px;margin:auto;padding:20px 12px 40px}
 header {
   display:flex;justify-content:space-between;
   align-items:center;flex-wrap:wrap;gap:15px;
@@ -36,19 +33,18 @@ header {
   font:bold clamp(23px,4vw,36px) Georgia,serif;
   letter-spacing:2px;
 }
-.sub { font-size:11px;letter-spacing:3px;color:var(--muted); }
+.sub {font-size:11px;letter-spacing:3px;color:var(--muted)}
 .balance {
   padding:12px 22px;border:1px solid #eac47766;
   border-radius:12px;background:#ffffff0a;
 }
-.balance small { display:block;color:var(--muted); }
-.balance strong { font-size:26px;color:var(--gold); }
+.balance small {display:block;color:var(--muted)}
+.balance strong {font-size:26px;color:var(--gold)}
 .panel {
-  background:var(--panel);
-  border:1px solid #ffffff20;
+  background:var(--panel);border:1px solid #ffffff20;
   border-radius:17px;padding:22px;margin-top:20px;
 }
-h2 { font-family:Georgia,serif;color:var(--gold); }
+h2 {font-family:Georgia,serif;color:var(--gold)}
 input {
   width:100%;padding:14px;margin:8px 0;
   background:#061b14;border:1px solid #ffffff44;
@@ -59,26 +55,24 @@ input {
   font-weight:800;transition:.2s;
 }
 .btn:hover:not(:disabled) {
-  transform:translateY(-3px);
-  filter:brightness(1.12);
+  transform:translateY(-3px);filter:brightness(1.12);
 }
 .gold {
   background:linear-gradient(120deg,#ffe5a5,#c79742);
   color:#251e0e;
 }
-.green { background:#18875c;color:white; }
-.blue { background:#316eae;color:white; }
+.green {background:#18875c;color:white}
+.blue {background:#316eae;color:white}
 .outline {
-  background:transparent;
-  border:1px solid #ffffff66;color:white;
+  background:transparent;border:1px solid #ffffff66;
+  color:white;
 }
 .actions {
-  display:flex;gap:10px;
-  justify-content:center;flex-wrap:wrap;
+  display:flex;gap:10px;justify-content:center;flex-wrap:wrap;
 }
-.hidden { display:none!important; }
-.lobby { max-width:500px;margin:45px auto; }
-.lobby p { color:var(--muted); }
+.hidden {display:none!important}
+.lobby {max-width:500px;margin:45px auto}
+.lobby p {color:var(--muted)}
 .roombar {
   display:flex;justify-content:space-between;
   gap:15px;align-items:center;flex-wrap:wrap;margin-top:20px;
@@ -97,9 +91,10 @@ input {
   border:9px solid #53371e;
   border-radius:38% 38% 13% 13% / 13% 13% 9% 9%;
   box-shadow:inset 0 0 0 3px #bc9657,0 20px 35px #0007;
-  display:flex;flex-direction:column;justify-content:space-between;
+  display:flex;flex-direction:column;
+  justify-content:space-between;
 }
-.hand { text-align:center; }
+.hand {text-align:center}
 .label {
   font-size:12px;letter-spacing:3px;
   color:#f5dfa9;font-weight:bold;
@@ -109,26 +104,25 @@ input {
   background:#06251f;border-radius:20px;color:var(--gold);
 }
 .cards {
-  min-height:125px;display:flex;
-  justify-content:center;align-items:center;padding:12px 0;
+  min-height:125px;display:flex;justify-content:center;
+  align-items:center;padding:12px 0;
 }
 .card {
   flex:0 0 auto;width:76px;height:108px;margin:0 -5px;
   background:#fffdf5;color:#122b26;
-  border:2px solid #eee6d7;
-  border-radius:9px;position:relative;
-  box-shadow:3px 6px 12px #0007;
+  border:2px solid #eee6d7;border-radius:9px;
+  position:relative;box-shadow:3px 6px 12px #0007;
   animation:deal .35s ease both;
 }
-.card.red { color:#ca3547; }
+.card.red {color:#ca3547}
 .corner {
   position:absolute;top:7px;left:8px;
   font-size:19px;line-height:17px;font-weight:900;
 }
-.corner span { display:block;font-size:15px; }
+.corner span {display:block;font-size:15px}
 .center {
-  position:absolute;inset:0;
-  display:grid;place-items:center;font-size:44px;
+  position:absolute;inset:0;display:grid;
+  place-items:center;font-size:44px;
 }
 .card.back {
   border:5px solid #edddb5;
@@ -139,14 +133,15 @@ input {
 .card.back:after {
   content:"♠";position:absolute;inset:12px;
   background:#123052;border:2px solid var(--gold);
-  display:grid;place-items:center;font-size:34px;color:var(--gold);
+  display:grid;place-items:center;
+  font-size:34px;color:var(--gold);
 }
 @keyframes deal {
   from {
     opacity:0;
     transform:translate(65px,-65px) rotate(15deg);
   }
-  to { opacity:1;transform:none; }
+  to {opacity:1;transform:none}
 }
 .middle {
   text-align:center;color:#e9c778a0;
@@ -158,19 +153,19 @@ input {
   gap:10px;margin-top:20px;
 }
 .player {
-  padding:14px;border-radius:12px;
-  background:#0c2a20;border:1px solid #ffffff25;
+  padding:14px;border-radius:12px;background:#0c2a20;
+  border:1px solid #ffffff25;
 }
-.player.me { background:#174434; }
+.player.me {background:#174434}
 .player.active {
   border-color:var(--gold);
   box-shadow:0 0 16px #e9c77833;
 }
-.player b { display:block;margin-bottom:7px; }
-.player small { color:#b9ccbe;line-height:1.8; }
+.player b {display:block;margin-bottom:7px}
+.player small {color:#b9ccbe;line-height:1.8}
 .status {
-  margin:14px 0;text-align:center;
-  color:var(--gold);font-weight:700;min-height:23px;
+  margin:14px 0;text-align:center;color:var(--gold);
+  font-weight:700;min-height:23px;
 }
 .chips {
   display:flex;justify-content:center;gap:15px;
@@ -178,28 +173,21 @@ input {
 }
 .chip {
   width:67px;height:67px;border-radius:50%;
-  border:6px dashed #ffffffdd;
-  color:white;font-weight:900;
-  box-shadow:0 6px 0 #0008;transition:.2s;
+  border:6px dashed #ffffffdd;color:white;
+  font-weight:900;box-shadow:0 6px 0 #0008;
+  transition:.2s;
 }
-.chip:hover:not(:disabled) {
-  transform:translateY(-6px);
-}
-.c10 { background:#296bb2; }
-.c50 { background:#b83852; }
-.c100 { background:#292e36; }
-.c500 { background:#96712d; }
-.history {
-  color:#c4d2c5;font-size:13px;line-height:2;
-}
-.history hr {
-  border:0;border-top:1px solid #ffffff22;
-}
+.chip:hover:not(:disabled) {transform:translateY(-6px)}
+.c10 {background:#296bb2}
+.c50 {background:#b83852}
+.c100 {background:#292e36}
+.c500 {background:#96712d}
+.history {color:#c4d2c5;font-size:13px;line-height:2}
+.history hr {border:0;border-top:1px solid #ffffff22}
 .toast {
   position:fixed;top:20px;left:50%;
-  transform:translateX(-50%);
-  z-index:20;padding:15px 24px;
-  border:1px solid var(--gold);
+  transform:translateX(-50%);z-index:20;
+  padding:15px 24px;border:1px solid var(--gold);
   border-radius:12px;background:#183e30;
   color:white;box-shadow:0 15px 35px #0009;
   max-width:90%;text-align:center;
@@ -209,23 +197,22 @@ footer {
   font-size:11px;color:#8ba394;
 }
 @media(max-width:600px) {
-  header { justify-content:center;text-align:center; }
+  header {justify-content:center;text-align:center}
   .table {
     min-height:390px;border-width:6px;padding:20px 7px;
   }
-  .card { width:60px;height:89px;margin:0 -4px; }
-  .corner { font-size:15px; }
-  .corner span { font-size:12px; }
-  .center { font-size:34px; }
-  .cards { min-height:100px; }
-  .panel { padding:15px 10px; }
-  .btn { padding:12px 14px;font-size:13px; }
+  .card {width:60px;height:89px;margin:0 -4px}
+  .corner {font-size:15px}
+  .corner span {font-size:12px}
+  .center {font-size:34px}
+  .cards {min-height:100px}
+  .panel {padding:15px 10px}
+  .btn {padding:12px 14px;font-size:13px}
 }
 </style>
 </head>
 
 <body>
-
 <div class="app">
 
 <header>
@@ -268,7 +255,6 @@ footer {
       SALA PRIVADA<br>
       <span class="code" id="roomCode"></span>
     </div>
-
     <div class="actions">
       <button id="share" class="btn outline">
         🔗 COMPARTIR
@@ -280,7 +266,6 @@ footer {
   </div>
 
   <div class="table">
-
     <div class="hand">
       <div class="label">CRUPIER</div>
       <div class="score" id="dealerScore">—</div>
@@ -297,7 +282,6 @@ footer {
       <div class="score" id="myScore">—</div>
       <div class="cards" id="myCards"></div>
     </div>
-
   </div>
 
   <div class="players" id="players"></div>
@@ -347,24 +331,25 @@ footer {
 <footer>
   BLACKJACK ROYALE LIVE · SOLO FICHAS VIRTUALES · SIN DINERO REAL
 </footer>
-
 </div>
 
 <div class="toast hidden" id="toast"></div>
 
 <script type="module">
 
-// ===============================
+// ===================================
 // FIREBASE
-// ===============================
+// ===================================
 
-import { initializeApp } from
+import {initializeApp} from
 "https://www.gstatic.com/firebasejs/10.12.5/firebase-app.js";
 
 import {
   getAuth,
   signInAnonymously,
-  onAuthStateChanged
+  onAuthStateChanged,
+  setPersistence,
+  browserLocalPersistence
 } from
 "https://www.gstatic.com/firebasejs/10.12.5/firebase-auth.js";
 
@@ -380,7 +365,8 @@ import {
 const firebaseConfig = {
   apiKey: "AIzaSyDGPz7LFprln_WSDBSLTfUSMAzVwFiOHis",
   authDomain: "blackjack-royale-live.firebaseapp.com",
-  databaseURL: "https://blackjack-royale-live-default-rtdb.firebaseio.com",
+  databaseURL:
+    "https://blackjack-royale-live-default-rtdb.firebaseio.com",
   projectId: "blackjack-royale-live",
   storageBucket: "blackjack-royale-live.firebasestorage.app",
   messagingSenderId: "267381340251",
@@ -392,10 +378,7 @@ const auth = getAuth(app);
 const db = getDatabase(app);
 
 const $ = id => document.getElementById(id);
-
-const money = n =>
-  "$" + Number(n || 0).toLocaleString("en-US");
-
+const money = n => "$" + Number(n || 0).toLocaleString("en-US");
 const uid = () => auth.currentUser?.uid;
 
 let room = null;
@@ -404,17 +387,17 @@ let unsubscribe = null;
 let busy = false;
 let previousResultKey = "";
 
-// ===============================
+// ===================================
 // UTILIDADES
-// ===============================
+// ===================================
 
 function safe(value) {
   return String(value ?? "").replace(/[&<>"']/g, c => ({
-    "&": "&amp;",
-    "<": "&lt;",
-    ">": "&gt;",
-    '"': "&quot;",
-    "'": "&#39;"
+    "&":"&amp;",
+    "<":"&lt;",
+    ">":"&gt;",
+    '"':"&quot;",
+    "'":"&#39;"
   }[c]));
 }
 
@@ -423,31 +406,32 @@ function toast(message) {
   $("toast").classList.remove("hidden");
 
   clearTimeout(window.toastTimeout);
-
   window.toastTimeout = setTimeout(() => {
     $("toast").classList.add("hidden");
-  }, 3800);
+  }, 4000);
 }
 
 function randomNumber(max) {
-  const limit = 4294967296;
-  const bound = limit - (limit % max);
   const values = new Uint32Array(1);
+  const bound = 4294967296 -
+    (4294967296 % max);
+
   do {
     crypto.getRandomValues(values);
   } while (values[0] >= bound);
+
   return values[0] % max;
 }
 
-// ===============================
-// BARAJA
-// ===============================
+// ===================================
+// CARTAS Y PUNTUACIÓN
+// ===================================
 
 function createDeck() {
-  const suits = ["♠", "♥", "♦", "♣"];
+  const suits = ["♠","♥","♦","♣"];
   const ranks = [
-    "A", "2", "3", "4", "5", "6", "7",
-    "8", "9", "10", "J", "Q", "K"
+    "A","2","3","4","5","6","7",
+    "8","9","10","J","Q","K"
   ];
 
   const deck = [];
@@ -455,14 +439,14 @@ function createDeck() {
   for (let shoe = 0; shoe < 6; shoe++) {
     for (const suit of suits) {
       for (const rank of ranks) {
-        deck.push({rank, suit});
+        deck.push({rank,suit});
       }
     }
   }
 
   for (let i = deck.length - 1; i > 0; i--) {
     const j = randomNumber(i + 1);
-    [deck[i], deck[j]] = [deck[j], deck[i]];
+    [deck[i],deck[j]] = [deck[j],deck[i]];
   }
 
   return deck;
@@ -472,14 +456,14 @@ function score(cards = []) {
   let sum = 0;
   let aces = 0;
 
-  for (const card of cards) {
-    if (card.rank === "A") {
+  for (const c of cards) {
+    if (c.rank === "A") {
       sum += 11;
       aces++;
-    } else if (["J", "Q", "K"].includes(card.rank)) {
+    } else if (["J","Q","K"].includes(c.rank)) {
       sum += 10;
     } else {
-      sum += Number(card.rank);
+      sum += Number(c.rank);
     }
   }
 
@@ -504,38 +488,37 @@ function makeCode() {
   const values = new Uint8Array(3);
   crypto.getRandomValues(values);
 
-  return Array.from(
-    values,
-    n => n.toString(16).padStart(2, "0")
+  return Array.from(values, n =>
+    n.toString(16).padStart(2,"0")
   ).join("").toUpperCase();
 }
 
 function newPlayer(name) {
   return {
     name,
-    balance: 1000,
-    bet: 0,
-    cards: [],
-    status: "waiting",
-    wins: 0,
-    losses: 0,
-    streak: 0
+    balance:1000,
+    bet:0,
+    cards:[],
+    status:"waiting",
+    wins:0,
+    losses:0,
+    streak:0
   };
 }
 
-// ===============================
+// ===================================
 // RESULTADOS
-// ===============================
+// ===================================
 
 function settle(r) {
-  const dealerScore = score(r.dealer);
+  const ds = score(r.dealer);
   const dealerBJ = natural(r.dealer);
   const results = [];
 
-  for (const [id, p] of Object.entries(r.players)) {
+  for (const [id,p] of Object.entries(r.players)) {
     if (p.bet <= 0) continue;
 
-    const playerScore = score(p.cards);
+    const ps = score(p.cards);
     const playerBJ = natural(p.cards);
     const wager = p.bet;
 
@@ -552,10 +535,10 @@ function settle(r) {
       payout = wager * 2.5;
     } else if (dealerBJ) {
       outcome = "loss";
-    } else if (dealerScore > 21 || playerScore > dealerScore) {
+    } else if (ds > 21 || ps > ds) {
       outcome = "win";
       payout = wager * 2;
-    } else if (playerScore === dealerScore) {
+    } else if (ps === ds) {
       outcome = "push";
       payout = wager;
     }
@@ -572,9 +555,9 @@ function settle(r) {
     }
 
     results.push({
-      name: p.name,
-      result: outcome,
-      profit: payout - wager
+      name:p.name,
+      result:outcome,
+      profit:payout-wager
     });
   }
 
@@ -583,17 +566,17 @@ function settle(r) {
   r.history = r.history || [];
 
   r.history.unshift({
-    round: r.round,
-    dealerScore,
+    round:r.round,
+    dealerScore:ds,
     results
   });
 
-  r.history = r.history.slice(0, 10);
+  r.history = r.history.slice(0,10);
 }
 
-// ===============================
+// ===================================
 // TURNOS
-// ===============================
+// ===================================
 
 function dealerTurn(r) {
   r.phase = "dealer";
@@ -611,11 +594,7 @@ function advance(r) {
 
   while (r.turnIndex < r.order.length) {
     const p = r.players[r.order[r.turnIndex]];
-
-    if (p?.status === "playing") {
-      return;
-    }
-
+    if (p?.status === "playing") return;
     r.turnIndex++;
   }
 
@@ -647,7 +626,6 @@ function begin(r) {
     for (const id of ids) {
       r.players[id].cards.push(draw(r));
     }
-
     r.dealer.push(draw(r));
   }
 
@@ -676,9 +654,9 @@ function begin(r) {
   return true;
 }
 
-// ===============================
-// TRANSACCIONES
-// ===============================
+// ===================================
+// TRANSACCIONES DEL JUEGO
+// ===================================
 
 async function transaction(mutator) {
   if (!roomCode || !uid() || busy) return;
@@ -686,12 +664,9 @@ async function transaction(mutator) {
   busy = true;
 
   try {
-    const roomRef = ref(db, "rooms/" + roomCode);
+    const roomRef = ref(db,"rooms/"+roomCode);
 
-    // Obtener primero la sala evita abortar por una
-    // lectura inicial null en la transacción.
     const snapshot = await get(roomRef);
-
     if (!snapshot.exists()) {
       toast("La sala ya no existe.");
       return;
@@ -705,7 +680,7 @@ async function transaction(mutator) {
         }
 
         const copy = structuredClone(current);
-        const changed = mutator(copy, uid());
+        const changed = mutator(copy,uid());
 
         return changed === false ? undefined : copy;
       },
@@ -713,39 +688,35 @@ async function transaction(mutator) {
     );
 
     if (!result.committed) {
-      toast("Acción no disponible. Revisa tu turno o apuesta.");
+      toast("Acción no disponible. Revisa tu turno.");
     }
-
   } catch (error) {
     console.error(error);
-    toast("Error de Firebase: " + error.message);
+    toast("Firebase: "+error.message);
   } finally {
     busy = false;
   }
 }
 
-// ===============================
+// ===================================
 // CREAR SALA
-// ===============================
+// ===================================
 
 async function createRoom() {
   if (!uid()) {
-    return toast("Firebase todavía está conectando.");
+    return toast("Esperando conexión con Firebase.");
   }
 
   if (busy) return;
 
-  const name = $("name").value.trim().slice(0, 20);
-
-  if (!name) {
-    return toast("Primero escribe tu nombre.");
-  }
+  const name = $("name").value.trim().slice(0,20);
+  if (!name) return toast("Escribe tu nombre.");
 
   busy = true;
 
   try {
     const code = makeCode();
-    const roomRef = ref(db, "rooms/" + code);
+    const roomRef = ref(db,"rooms/"+code);
 
     const result = await runTransaction(
       roomRef,
@@ -753,25 +724,25 @@ async function createRoom() {
         if (current !== null) return;
 
         return {
-          host: uid(),
-          phase: "betting",
-          round: 0,
-          players: {
-            [uid()]: newPlayer(name)
+          host:uid(),
+          phase:"betting",
+          round:0,
+          players:{
+            [uid()]:newPlayer(name)
           },
-          dealer: [],
-          dealerVisible: false,
-          deck: [],
-          order: [],
-          turnIndex: 0,
-          history: []
+          dealer:[],
+          dealerVisible:false,
+          deck:[],
+          order:[],
+          turnIndex:0,
+          history:[]
         };
       },
       {applyLocally:false}
     );
 
     if (!result.committed) {
-      toast("No se pudo crear la sala. Inténtalo otra vez.");
+      toast("No se pudo crear. Vuelve a intentar.");
       return;
     }
 
@@ -779,112 +750,110 @@ async function createRoom() {
 
   } catch (error) {
     console.error(error);
-    toast("Error al crear sala: " + error.message);
+    toast("Error al crear sala: "+error.message);
   } finally {
     busy = false;
   }
 }
 
-// ===============================
-// UNIRSE A SALA - CORREGIDO
-// ===============================
+// ===================================
+// UNIRSE A SALA - VERSIÓN CORREGIDA
+// ===================================
 
 async function joinRoom() {
   if (!uid()) {
-    return toast("Firebase todavía está conectando.");
+    return toast("Esperando conexión con Firebase.");
   }
 
   if (busy) return;
 
-  const name = $("name").value.trim().slice(0, 20);
+  const name = $("name").value.trim().slice(0,20);
   const code = $("codeInput").value.trim().toUpperCase();
 
-  if (!name || !code) {
-    return toast("Escribe tu nombre y el código.");
+  if (!name) {
+    return toast("Escribe tu nombre.");
   }
 
   if (!/^[A-F0-9]{6}$/.test(code)) {
-    return toast("El código debe tener 6 caracteres.");
+    return toast("Introduce un código válido de 6 caracteres.");
   }
 
   busy = true;
 
   try {
-    const roomRef = ref(db, "rooms/" + code);
+    const roomRef = ref(db,"rooms/"+code);
 
-    // Confirmar que la sala exista antes de la transacción.
+    // 1. Verificar que la sala existe.
     const snapshot = await get(roomRef);
 
     if (!snapshot.exists()) {
-      toast("Esta sala no existe en Firebase.");
+      toast("La sala no existe en Firebase.");
       return;
     }
 
     const currentRoom = snapshot.val();
-
-    const alreadyJoined = Boolean(
-      currentRoom.players?.[uid()]
-    );
+    const players = currentRoom.players || {};
+    const alreadyJoined = Boolean(players[uid()]);
 
     if (
       !alreadyJoined &&
-      Object.keys(currentRoom.players || {}).length >= 6
+      Object.keys(players).length >= 6
     ) {
-      toast("Esta sala está llena. Máximo 6 jugadores.");
+      toast("La sala está llena. Máximo 6 jugadores.");
       return;
     }
 
+    // 2. Registrar al jugador en su propio nodo.
+    // No modificamos toda la sala para incorporarlo.
+    const playerRef = ref(
+      db,
+      "rooms/"+code+"/players/"+uid()
+    );
+
     const result = await runTransaction(
-      roomRef,
-      current => {
-        if (!current) return;
-
-        if (current.players?.[uid()]) {
-          return current;
+      playerRef,
+      existing => {
+        // Si ya está registrado, conserva sus fichas.
+        if (existing !== null) {
+          return existing;
         }
 
-        if (
-          Object.keys(current.players || {}).length >= 6
-        ) {
-          return;
-        }
-
-        const updated = structuredClone(current);
-
-        if (!updated.players) {
-          updated.players = {};
-        }
-
-        updated.players[uid()] = newPlayer(name);
-
-        return updated;
+        return newPlayer(name);
       },
       {applyLocally:false}
     );
 
     if (!result.committed) {
-      toast("No se pudo entrar. Intenta otra vez.");
+      toast("Firebase no confirmó el ingreso.");
       return;
     }
 
+    // 3. Comprobar el registro.
+    const verification = await get(playerRef);
+
+    if (!verification.exists()) {
+      toast("No se pudo verificar al jugador.");
+      return;
+    }
+
+    // 4. Abrir la mesa compartida.
     openRoom(code);
+    toast("¡Bienvenido a la mesa!");
 
   } catch (error) {
-    console.error("Error de unión:", error);
-    toast("Error al entrar: " + error.message);
+    console.error("JOIN ERROR:",error);
+    toast("Error de Firebase: "+error.message);
   } finally {
     busy = false;
   }
 }
 
-// ===============================
-// CONEXIÓN CON LA SALA
-// ===============================
+// ===================================
+// ESCUCHAR LA SALA EN VIVO
+// ===================================
 
 function openRoom(code) {
-  if (unsubscribe) {
-    unsubscribe();
-  }
+  if (unsubscribe) unsubscribe();
 
   roomCode = code;
   previousResultKey = "";
@@ -892,16 +861,16 @@ function openRoom(code) {
   history.replaceState(
     null,
     "",
-    location.pathname + "?room=" + code
+    location.pathname+"?room="+code
   );
 
   unsubscribe = onValue(
-    ref(db, "rooms/" + code),
+    ref(db,"rooms/"+code),
     snapshot => {
       room = snapshot.val();
 
       if (!room) {
-        toast("Esta sala fue eliminada.");
+        toast("La sala ya no existe.");
         leaveRoom();
         return;
       }
@@ -910,7 +879,7 @@ function openRoom(code) {
     },
     error => {
       console.error(error);
-      toast("Error de lectura: " + error.message);
+      toast("Error de lectura: "+error.message);
     }
   );
 }
@@ -928,19 +897,19 @@ function leaveRoom() {
   $("game").classList.add("hidden");
   $("lobby").classList.remove("hidden");
 
-  history.replaceState(null, "", location.pathname);
+  history.replaceState(null,"",location.pathname);
 }
 
-// ===============================
+// ===================================
 // CARTAS VISUALES
-// ===============================
+// ===================================
 
 function cardHTML(card) {
   if (!card) {
     return '<div class="card back"></div>';
   }
 
-  const red = ["♥", "♦"].includes(card.suit);
+  const red = ["♥","♦"].includes(card.suit);
 
   return `
     <div class="card ${red ? "red" : ""}">
@@ -953,9 +922,9 @@ function cardHTML(card) {
   `;
 }
 
-// ===============================
-// RENDERIZAR MESA
-// ===============================
+// ===================================
+// ACTUALIZAR INTERFAZ
+// ===================================
 
 function render() {
   if (!room || !uid()) return;
@@ -971,7 +940,7 @@ function render() {
   $("myBet").textContent = money(me.bet);
 
   $("myCards").innerHTML =
-    (me.cards || []).map(cardHTML).join("");
+    (me.cards||[]).map(cardHTML).join("");
 
   $("myScore").textContent =
     me.cards?.length ? score(me.cards) : "—";
@@ -980,17 +949,16 @@ function render() {
 
   const shown = room.dealerVisible
     ? dealer
-    : dealer.length
-      ? [dealer[0], null]
-      : [];
+    : dealer.length ? [dealer[0],null] : [];
 
   $("dealerCards").innerHTML =
     shown.map(cardHTML).join("");
 
-  $("dealerScore").textContent = shown.length
-    ? score(shown.filter(Boolean)) +
-      (room.dealerVisible ? "" : " + ?")
-    : "—";
+  $("dealerScore").textContent =
+    shown.length
+      ? score(shown.filter(Boolean))+
+        (room.dealerVisible ? "" : " + ?")
+      : "—";
 
   const isHost = room.host === uid();
   const activeId = room.order?.[room.turnIndex];
@@ -1006,26 +974,25 @@ function render() {
     !(betting || room.phase === "finished")
   );
 
-  $("playControls").classList.toggle("hidden", !myTurn);
+  $("playControls").classList.toggle("hidden",!myTurn);
 
-  $("startRound").classList.toggle("hidden", !isHost);
+  $("startRound").classList.toggle("hidden",!isHost);
 
   $("startRound").disabled =
     !betting ||
-    !Object.values(room.players).some(p => p.bet > 0);
+    !Object.values(room.players).some(p=>p.bet>0);
 
   $("clearBet").disabled =
     !betting || me.bet === 0;
 
   $("double").disabled =
-    me.cards?.length !== 2 || me.balance < me.bet;
+    me.cards?.length !== 2 ||
+    me.balance < me.bet;
 
-  document.querySelectorAll("[data-bet]").forEach(btn => {
-    const amount = Number(btn.dataset.bet);
-
+  document.querySelectorAll("[data-bet]").forEach(btn=>{
     btn.disabled =
-      !["betting", "finished"].includes(room.phase) ||
-      amount > me.balance;
+      !["betting","finished"].includes(room.phase) ||
+      Number(btn.dataset.bet)>me.balance;
   });
 
   const active = room.players?.[activeId];
@@ -1033,18 +1000,18 @@ function render() {
   if (room.phase === "betting") {
     $("status").textContent = isHost
       ? "Esperando apuestas. Reparte cuando estén listos."
-      : "Selecciona fichas y espera al anfitrión.";
+      : "Selecciona tus fichas y espera al anfitrión.";
   } else if (room.phase === "playing") {
     $("status").textContent = myTurn
       ? "¡TU TURNO! Pide, plántate o dobla."
-      : "Turno de " + (active?.name || "otro jugador");
+      : "Turno de "+(active?.name||"otro jugador");
   } else if (room.phase === "finished") {
     const messages = {
-      blackjack: "👑 ¡BLACKJACK!",
-      win: "🏆 ¡GANASTE!",
-      push: "🤝 EMPATE",
-      loss: "LA CASA GANA",
-      waiting: "Ronda terminada"
+      blackjack:"👑 ¡BLACKJACK!",
+      win:"🏆 ¡GANASTE!",
+      push:"🤝 EMPATE",
+      loss:"LA CASA GANA",
+      waiting:"Ronda terminada"
     };
 
     $("status").textContent =
@@ -1054,20 +1021,20 @@ function render() {
   }
 
   $("players").innerHTML =
-    Object.entries(room.players).map(([id, p]) => `
+    Object.entries(room.players).map(([id,p])=>`
       <div class="player
-        ${id === uid() ? "me" : ""}
-        ${id === activeId && room.phase === "playing" ? "active" : ""}
+        ${id===uid()?"me":""}
+        ${id===activeId&&room.phase==="playing"?"active":""}
       ">
         <b>
           ${safe(p.name)}
-          ${id === room.host ? "👑" : ""}
-          ${id === uid() ? "(Tú)" : ""}
+          ${id===room.host?"👑":""}
+          ${id===uid()?"(Tú)":""}
         </b>
         <small>
           Saldo: ${money(p.balance)}<br>
           Apuesta: ${money(p.bet)}<br>
-          Puntos: ${p.cards?.length ? score(p.cards) : "—"}<br>
+          Puntos: ${p.cards?.length?score(p.cards):"—"}<br>
           Estado: ${safe(p.status)}<br>
           Victorias: ${p.wins} · Racha: ${p.streak}
         </small>
@@ -1075,29 +1042,29 @@ function render() {
     `).join("");
 
   $("history").innerHTML = room.history?.length
-    ? room.history.map(h => `
-        <div>
-          <b>Ronda ${h.round}</b>
-          · Crupier ${h.dealerScore}<br>
-          ${(h.results || []).map(p =>
-            `${safe(p.name)}: ${safe(p.result)}
-            (${p.profit >= 0 ? "+" : ""}${money(p.profit)})`
-          ).join(" · ")}
-        </div>
-        <hr>
-      `).join("")
+    ? room.history.map(h=>`
+      <div>
+        <b>Ronda ${h.round}</b>
+        · Crupier ${h.dealerScore}<br>
+        ${(h.results||[]).map(p=>
+          `${safe(p.name)}: ${safe(p.result)}
+          (${p.profit>=0?"+":""}${money(p.profit)})`
+        ).join(" · ")}
+      </div><hr>
+    `).join("")
     : "Todavía no hay rondas.";
 
-  const resultKey = room.phase === "finished"
-    ? roomCode + ":" + room.round
-    : "";
+  const resultKey =
+    room.phase === "finished"
+      ? roomCode+":"+room.round
+      : "";
 
   if (resultKey && resultKey !== previousResultKey) {
     const messages = {
-      blackjack: "👑 ¡BLACKJACK! Pago 3:2",
-      win: "🏆 ¡Ganaste!",
-      push: "🤝 Empate. Recuperas tu apuesta.",
-      loss: "La casa gana."
+      blackjack:"👑 ¡BLACKJACK! Pago 3:2",
+      win:"🏆 ¡Ganaste!",
+      push:"🤝 Empate. Recuperas tu apuesta.",
+      loss:"La casa gana."
     };
 
     if (messages[me.status]) {
@@ -1108,12 +1075,12 @@ function render() {
   }
 }
 
-// ===============================
+// ===================================
 // APUESTAS
-// ===============================
+// ===================================
 
 async function addBet(amount) {
-  await transaction((r, id) => {
+  await transaction((r,id)=>{
     if (r.phase === "finished") {
       r.phase = "betting";
       r.dealer = [];
@@ -1132,7 +1099,6 @@ async function addBet(amount) {
     if (r.phase !== "betting") return false;
 
     const p = r.players[id];
-
     if (p.balance < amount) return false;
 
     p.balance -= amount;
@@ -1141,36 +1107,34 @@ async function addBet(amount) {
 }
 
 async function clearBet() {
-  await transaction((r, id) => {
+  await transaction((r,id)=>{
     if (r.phase !== "betting") return false;
 
     const p = r.players[id];
-
     p.balance += p.bet;
     p.bet = 0;
   });
 }
 
-// ===============================
+// ===================================
 // INICIAR RONDA
-// ===============================
+// ===================================
 
 async function startRound() {
-  await transaction((r, id) => {
+  await transaction((r,id)=>{
     if (r.host !== id || r.phase !== "betting") {
       return false;
     }
-
     return begin(r);
   });
 }
 
-// ===============================
+// ===================================
 // ACCIONES DEL JUGADOR
-// ===============================
+// ===================================
 
 async function action(type) {
-  await transaction((r, id) => {
+  await transaction((r,id)=>{
     if (
       r.phase !== "playing" ||
       r.order[r.turnIndex] !== id
@@ -1179,16 +1143,15 @@ async function action(type) {
     }
 
     const p = r.players[id];
-
     if (p.status !== "playing") return false;
 
     if (type === "hit") {
       p.cards.push(draw(r));
 
-      if (score(p.cards) > 21) {
+      if (score(p.cards)>21) {
         p.status = "bust";
         advance(r);
-      } else if (score(p.cards) === 21) {
+      } else if (score(p.cards)===21) {
         p.status = "stand";
         advance(r);
       }
@@ -1198,10 +1161,7 @@ async function action(type) {
       advance(r);
 
     } else if (type === "double") {
-      if (
-        p.cards.length !== 2 ||
-        p.balance < p.bet
-      ) {
+      if (p.cards.length!==2 || p.balance<p.bet) {
         return false;
       }
 
@@ -1209,7 +1169,7 @@ async function action(type) {
       p.bet *= 2;
       p.cards.push(draw(r));
 
-      p.status = score(p.cards) > 21
+      p.status = score(p.cards)>21
         ? "bust"
         : "stand";
 
@@ -1221,9 +1181,9 @@ async function action(type) {
   });
 }
 
-// ===============================
-// EVENTOS
-// ===============================
+// ===================================
+// BOTONES
+// ===================================
 
 $("create").onclick = createRoom;
 $("join").onclick = joinRoom;
@@ -1232,33 +1192,30 @@ $("leave").onclick = leaveRoom;
 $("clearBet").onclick = clearBet;
 $("startRound").onclick = startRound;
 
-$("hit").onclick = () => action("hit");
-$("stand").onclick = () => action("stand");
-$("double").onclick = () => action("double");
+$("hit").onclick = ()=>action("hit");
+$("stand").onclick = ()=>action("stand");
+$("double").onclick = ()=>action("double");
 
-document.querySelectorAll("[data-bet]").forEach(btn => {
-  btn.onclick = () => {
+document.querySelectorAll("[data-bet]").forEach(btn=>{
+  btn.onclick = ()=>
     addBet(Number(btn.dataset.bet));
-  };
 });
 
-$("share").onclick = async () => {
+$("share").onclick = async()=>{
   const url =
-    location.origin +
-    location.pathname +
-    "?room=" + roomCode;
+    location.origin+location.pathname+"?room="+roomCode;
 
   try {
     await navigator.clipboard.writeText(url);
-    toast("¡Enlace copiado! Compártelo por WhatsApp.");
+    toast("¡Enlace copiado! Envíalo a tus amigos.");
   } catch {
-    prompt("Copia tu invitación:", url);
+    prompt("Copia tu invitación:",url);
   }
 };
 
-// ===============================
-// AUTENTICACIÓN
-// ===============================
+// ===================================
+// AUTENTICACIÓN ANÓNIMA
+// ===================================
 
 const requestedRoom =
   new URLSearchParams(location.search).get("room");
@@ -1267,19 +1224,34 @@ if (requestedRoom) {
   $("codeInput").value = requestedRoom.toUpperCase();
 }
 
-onAuthStateChanged(auth, user => {
+onAuthStateChanged(auth,user=>{
   $("connection").textContent = user
     ? "● Conectado a Firebase"
     : "Conectando con Firebase...";
 });
 
-if (!auth.currentUser) {
-  signInAnonymously(auth).catch(error => {
+async function initializeAuth() {
+  try {
+    await setPersistence(auth,browserLocalPersistence);
+
+    if (!auth.currentUser) {
+      await signInAnonymously(auth);
+    }
+
+    $("connection").textContent =
+      "● Conectado a Firebase";
+
+  } catch (error) {
     console.error(error);
-    $("connection").textContent = "Error de conexión";
-    toast("Firebase: " + error.message);
-  });
+
+    $("connection").textContent =
+      "Error de conexión";
+
+    toast("Firebase: "+error.message);
+  }
 }
+
+initializeAuth();
 
 </script>
 </body>
